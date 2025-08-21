@@ -1,5 +1,4 @@
 "use client";
-import { getItem, setItem } from "../../../helpers/localstorage";
 import {
 	AlignJustify,
 	Bell,
@@ -26,7 +25,8 @@ import {
 } from "lucide-react";
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getItem, setItem } from "../../../helpers/localstorage";
 
 const varelaRound = Varela_Round({
 	weight: ["400"],
@@ -35,10 +35,15 @@ const varelaRound = Varela_Round({
 
 const JobSeekerDashboard = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-	const [activeTab, setActiveTab] = useState(
-		getItem("activeTab") || "dashboard"
-	);
+	const [activeTab, setActiveTab] = useState("dashboard");
 	const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+	useEffect(() => {
+		const savedTab = getItem("activeTab");
+		if (savedTab) {
+			setActiveTab(savedTab);
+		}
+	}, []);
 
 	const recentJobs = [
 		{
