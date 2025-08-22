@@ -3,13 +3,9 @@ import {
 	ArrowRight,
 	Book,
 	Briefcase,
-	Calendar,
-	Clock,
 	Code,
-	DollarSign,
 	Globe,
 	HeartPulse,
-	MapPin,
 	Megaphone,
 	Palette,
 	Search,
@@ -21,6 +17,13 @@ import {
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { JobPostingCard } from "../components/shared/job-posting";
+import { useDebounce } from "../hooks/useDebounce";
+import {
+	useGetAllJobPostingsByPagination,
+	useSearchJobPostings,
+} from "../hooks/useJobPostings";
 
 const varelaRound = Varela_Round({
 	weight: ["400"],
@@ -29,50 +32,51 @@ const varelaRound = Varela_Round({
 
 const HomePage = () => {
 	const router = useRouter();
-	const recentJobs = [
-		{
-			id: 1,
-			title: "Frontend Developer",
-			company: "TechCorp UZ",
-			location: "Toshkent",
-			salary: "$800 - $1500",
-			type: "Full-time",
-			posted: "5 days in a week",
-			views: "584 days ago",
-			featured: true,
-			logo: <Briefcase className="w-5 h-5 text-black" />,
-			description:
-				"We are looking for a skilled Frontend Developer to join our dynamic team...",
-		},
-		{
-			id: 2,
-			title: "Marketing Manager",
-			company: "Digital Agency",
-			location: "Samarqand",
-			salary: "$600 - $1000",
-			type: "Full-time",
-			posted: "6 days in a week",
-			views: "581 days ago",
-			featured: true,
-			logo: <Briefcase className="w-5 h-5 text-black" />,
-			description:
-				"Join our marketing team as a Marketing Manager to drive growth and engagement...",
-		},
-		{
-			id: 3,
-			title: "UX/UI Designer",
-			company: "Creative Studio",
-			location: "Bukhara",
-			salary: "$400 - $800",
-			type: "Part-time",
-			posted: "3 days in a week",
-			views: "579 days ago",
-			featured: true,
-			logo: <Briefcase className="w-5 h-5 text-black" />,
-			description:
-				"We need a creative UX/UI Designer to craft beautiful user experiences...",
-		},
-	];
+	const [searchTerm, setSearchTerm] = useState("");
+	const { data: jobPostingsWithPagination } = useGetAllJobPostingsByPagination({
+		page: 1,
+		limit: 10,
+	});
+	const jobs = jobPostingsWithPagination?.data || [];
+
+	const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+	const { data: searchResults, isLoading: isSearching } =
+		useSearchJobPostings(debouncedSearchTerm);
+
+	const recentJobs = useMemo(() => {
+		if (debouncedSearchTerm && searchResults) {
+			return searchResults.map((job) => ({
+				id: job.id,
+				title: job.title || "No title",
+				company: job.company.name || "No company",
+				location: job.location || "No location",
+				experience: job.requirements || "No experience",
+				payment: job.salaryPeriod || "No payment",
+				salary: `${job.salaryMin} - ${job.salaryMax} sum` || "No salary",
+				logo: job.logo || <Briefcase className="w-5 h-5 text-black" />,
+				description: job.description || "No description",
+				posted: job.publishedAt.split("T")[0] || "No posted",
+				viewCount: job.viewCount || 0,
+				applicationCount: job.applicationCount || 0,
+			}));
+		}
+
+		return jobs.map((job) => ({
+			id: job.id,
+			title: job.title || "No title",
+			company: job.company.name || "No company",
+			location: job.location || "No location",
+			experience: job.requirements || "No experience",
+			payment: job.salaryPeriod || "No payment",
+			salary: `${job.salaryMin} - ${job.salaryMax} sum` || "No salary",
+			logo: job.logo || <Briefcase className="w-5 h-5 text-black" />,
+			description: job.description || "No description",
+			posted: job.publishedAt.split("T")[0] || "No posted",
+			viewCount: job.viewCount || 0,
+			applicationCount: job.applicationCount || 0,
+		}));
+	}, [jobs, debouncedSearchTerm, searchResults]);
 
 	const categories = [
 		{
@@ -132,10 +136,6 @@ const HomePage = () => {
 			description: "Connect with thousands of companies across Uzbekistan",
 		},
 	];
-
-	const handleApplyJob = () => {
-		router.push("/sign-in");
-	};
 
 	return (
 		<div className="min-h-screen bg-gray-50">
@@ -221,11 +221,21 @@ const HomePage = () => {
 								<input
 									type="text"
 									placeholder="Job title or company..."
+									value={searchTerm}
+									onChange={(e) => setSearchTerm(e.target.value)}
 									className="w-full pl-12 pr-4 py-4 text-gray-900 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 								/>
+								{searchTerm && searchTerm !== debouncedSearchTerm && (
+									<div className="absolute right-3 top-4 text-xs text-gray-400">
+										Searching...
+									</div>
+								)}
 							</div>
-							<button className="bg-blue-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors">
-								Search
+							<button
+								onClick={() => setSearchTerm("")}
+								className="bg-blue-600 text-white px-6 py-4 rounded-xl font-semibold hover:bg-blue-700 transition-colors"
+							>
+								{searchTerm ? "Clear" : "Search"}
 							</button>
 						</div>
 					</div>
@@ -262,10 +272,14 @@ const HomePage = () => {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center mb-12">
 						<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-							Latest jobs
+							{searchTerm ? "Search Results" : "Latest jobs"}
 						</h2>
 						<p className="text-lg text-gray-600 max-w-2xl mx-auto">
-							Find the job that suits you or hire the ideal employee.
+							{searchTerm
+								? `Found ${recentJobs.length} job${
+										recentJobs.length !== 1 ? "s" : ""
+								  } matching "${debouncedSearchTerm}"`
+								: "Find the job that suits you or hire the ideal employee."}
 						</p>
 					</div>
 					<div className="bg-white rounded-2xl p-6 mb-8 shadow-sm">
@@ -298,71 +312,45 @@ const HomePage = () => {
 						</div>
 					</div>
 
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-						{recentJobs.map((job) => (
-							<div
-								key={job.id}
-								className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow relative"
-							>
-								{job.featured && (
-									<span className="absolute top-4 right-4 bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full font-medium">
-										Full-time
-									</span>
-								)}
-
-								<div className="flex items-start gap-4 mb-4">
-									<div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-2xl">
-										{job.logo}
-									</div>
-									<div className="flex-1">
-										<h3 className="font-semibold text-gray-900 text-lg mb-1">
-											{job.title}
-										</h3>
-										<p className="text-gray-600 font-medium">{job.company}</p>
-									</div>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+						{isSearching && searchTerm ? (
+							<div className="col-span-full text-center py-12">
+								<div className="text-blue-600 mb-4">
+									<div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto"></div>
 								</div>
-
-								<p className="text-gray-600 mb-4 text-sm leading-relaxed">
-									{job.description}
+								<h3 className="text-xl font-semibold text-gray-600 mb-2">
+									Searching...
+								</h3>
+								<p className="text-gray-500">
+									Looking for jobs matching "{searchTerm}"
 								</p>
-
-								<div className="space-y-2 mb-6">
-									<div className="flex items-center gap-2 text-sm text-gray-500">
-										<MapPin className="w-4 h-4" />
-										{job.location}
-									</div>
-									<div className="flex items-center gap-2 text-sm text-gray-500">
-										<DollarSign className="w-4 h-4" />
-										{job.salary}
-									</div>
-									<div className="flex items-center gap-2 text-sm text-gray-500">
-										<Calendar className="w-4 h-4" />
-										{job.posted}
-									</div>
-									<div className="flex items-center gap-2 text-sm text-gray-500">
-										<Clock className="w-4 h-4" />
-										{job.views}
-									</div>
-								</div>
-
-								<div className="flex gap-3">
-									<button className="flex-1 border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors">
-										Details
-									</button>
-									<button
-										onClick={handleApplyJob}
-										className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors font-medium"
-									>
-										Apply
-									</button>
-								</div>
 							</div>
-						))}
+						) : recentJobs.length > 0 ? (
+							recentJobs.map((job) => <JobPostingCard key={job.id} job={job} />)
+						) : searchTerm ? (
+							<div className="col-span-full text-center py-12">
+								<div className="text-gray-400 mb-4">
+									<Search className="w-16 h-16 mx-auto" />
+								</div>
+								<h3 className="text-xl font-semibold text-gray-600 mb-2">
+									No jobs found
+								</h3>
+								<p className="text-gray-500">
+									Try adjusting your search terms or browse all available jobs
+								</p>
+								<button
+									onClick={() => setSearchTerm("")}
+									className="mt-4 text-blue-600 hover:text-blue-700 font-medium"
+								>
+									Clear search
+								</button>
+							</div>
+						) : null}
 					</div>
 
 					<div className="text-center mt-12">
 						<button
-							onClick={handleApplyJob}
+							onClick={() => router.push("/jobs")}
 							className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
 						>
 							View all jobs
@@ -387,6 +375,7 @@ const HomePage = () => {
 						{categories.map((category, index) => (
 							<div
 								key={index}
+								onClick={() => router.push("/jobs")}
 								className="text-center p-6 border border-gray-200 rounded-2xl hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer"
 							>
 								<div className="text-4xl mb-4 flex items-center justify-center">
@@ -498,9 +487,12 @@ const HomePage = () => {
 							<h3 className="font-semibold mb-4">Job Seekers</h3>
 							<ul className="space-y-2 text-gray-400">
 								<li>
-									<a href="#" className="hover:text-white">
+									<button
+										onClick={() => router.push("/jobs")}
+										className="hover:text-white text-left w-full"
+									>
 										Job search
-									</a>
+									</button>
 								</li>
 								<li>
 									<a href="#" className="hover:text-white">

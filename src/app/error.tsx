@@ -52,8 +52,7 @@ export default function Error({ error, reset }: ErrorProps) {
 		timeout: {
 			icon: RefreshCw,
 			title: "Timeout",
-			subtitle:
-				"Server did not respond. Please try again later",
+			subtitle: "Server did not respond. Please try again later",
 			color: "text-orange-500",
 		},
 		unauthorized: {
@@ -133,7 +132,7 @@ export default function Error({ error, reset }: ErrorProps) {
 					</details>
 				)}
 
-				<div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mb-8">
+				<div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mb-8 justify-center">
 					<button
 						onClick={reset}
 						className="flex items-center justify-center gap-2 bg-yellow-400 text-gray-900 px-6 py-4 rounded-xl font-semibold hover:bg-yellow-300 hover:-translate-y-1 transition-all shadow-lg"
@@ -152,9 +151,7 @@ export default function Error({ error, reset }: ErrorProps) {
 				</div>
 
 				<div className="text-white/60 text-sm max-w-md">
-					<p className="mb-2">
-						If you need help, contact our support team:
-					</p>
+					<p className="mb-2">If you need help, contact our support team:</p>
 					<Link
 						href="/support"
 						className="text-yellow-400 hover:text-yellow-300 underline"
@@ -176,11 +173,8 @@ export function ServerError() {
 			<div className="text-white mb-8">
 				<Server size={120} className="mx-auto mb-6 animate-pulse" />
 				<h1 className="text-6xl font-bold mb-4">500</h1>
-				<h2 className="text-3xl font-semibold mb-4">Server xatoligi</h2>
-				<p className="text-lg opacity-80 max-w-md">
-					Bizning serverlarimizda muammo yuz berdi. Texnik jamoa ustida
-					ishlayapti.
-				</p>
+				<h2 className="text-3xl font-semibold mb-4">Server error</h2>
+				<p className="text-lg opacity-80 max-w-md">Error occurred</p>
 			</div>
 
 			<div className="flex gap-4">
@@ -188,13 +182,13 @@ export function ServerError() {
 					onClick={() => window.location.reload()}
 					className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
 				>
-					Sahifani yangilash
+					Refresh
 				</button>
 				<Link
 					href="/"
 					className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition-colors"
 				>
-					Bosh sahifa
+					Home
 				</Link>
 			</div>
 		</div>
@@ -208,10 +202,10 @@ export function ForbiddenError() {
 			<div className="text-white mb-8">
 				<Shield size={120} className="mx-auto mb-6 animate-pulse" />
 				<h1 className="text-6xl font-bold mb-4">403</h1>
-				<h2 className="text-3xl font-semibold mb-4">Kirish taqiqlangan</h2>
+				<h2 className="text-3xl font-semibold mb-4">Access denied</h2>
 				<p className="text-lg opacity-80 max-w-md">
-					Bu sahifaga kirish uchun sizda yetarli ruxsat yo'q. Tizimga
-					kirishingiz kerak bo'lishi mumkin.
+					You do not have permission to access this page. You need to login to
+					access this page.
 				</p>
 			</div>
 
@@ -220,13 +214,13 @@ export function ForbiddenError() {
 					href="/signin"
 					className="bg-white text-orange-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
 				>
-					Tizimga kirish
+					Login
 				</Link>
 				<Link
 					href="/"
 					className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-orange-600 transition-colors"
 				>
-					Bosh sahifa
+					Home
 				</Link>
 			</div>
 		</div>
@@ -239,10 +233,10 @@ export function NetworkError({ onRetry }: { onRetry?: () => void }) {
 		<div className="flex flex-col items-center justify-center py-12 text-center">
 			<Wifi size={64} className="text-red-500 mb-4 animate-pulse" />
 			<h3 className="text-xl font-semibold text-gray-800 mb-2">
-				Internet aloqasi yo'q
+				No internet connection
 			</h3>
 			<p className="text-gray-600 mb-6 max-w-md">
-				Internet ulanishingizni tekshiring va qaytadan urinib ko'ring
+				Check your internet connection and try again
 			</p>
 
 			{onRetry && (
@@ -251,7 +245,7 @@ export function NetworkError({ onRetry }: { onRetry?: () => void }) {
 					className="flex items-center gap-2 bg-blue-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-600 transition-colors"
 				>
 					<RefreshCw size={18} />
-					Qaytadan urinish
+					Retry
 				</button>
 			)}
 		</div>
