@@ -16,7 +16,7 @@ export function apiConfig() {
 			const res: any = await axiosInstance.post(url, body);
 			return res;
 		} catch (error: any) {
-			Notification("error", error?.message);
+			Notification("error", error?.response?.data?.error?.message);
 			throw error; // Re-throw the error so React Query can handle it properly
 		}
 	}

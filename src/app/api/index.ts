@@ -19,7 +19,21 @@ axiosInstance.interceptors.response.use(
 		if (err.response && err.response.status === 401) {
 			removeItem("access_token");
 			removeItem("role");
-			window.location.href = "/";
+			removeItem("user_id");
+
+			document.cookie =
+				"access_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+			document.cookie = "role=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+			document.cookie =
+				"user_id=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;";
+
+			if (
+				!window.location.pathname.includes("/sign-in") &&
+				!window.location.pathname.includes("/sign-up") &&
+				!window.location.pathname.includes("/choose-role")
+			) {
+				window.location.href = "/sign-in";
+			}
 		}
 		return Promise.reject(err);
 	}

@@ -17,8 +17,9 @@ import {
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { JobPostingCard } from "../components/shared/job-posting";
+import { getItem } from "../helpers/localstorage";
 import { useDebounce } from "../hooks/useDebounce";
 import {
 	useGetAllJobPostingsByPagination,
@@ -46,10 +47,10 @@ const HomePage = () => {
 
 	const recentJobs = useMemo(() => {
 		if (debouncedSearchTerm && searchResults) {
-			return searchResults.map((job) => ({
+			return searchResults.results.map((job) => ({
 				id: job.id,
 				title: job.title || "No title",
-				company: job.company.name || "No company",
+				company: job.company?.name || "No company",
 				location: job.location || "No location",
 				experience: job.requirements || "No experience",
 				payment: job.salaryPeriod || "No payment",
@@ -77,6 +78,16 @@ const HomePage = () => {
 			applicationCount: job.applicationCount || 0,
 		}));
 	}, [jobs, debouncedSearchTerm, searchResults]);
+
+	
+	useEffect(() => {
+		if (debouncedSearchTerm && searchResults) {
+			const jobsSection = document.getElementById("jobs");
+			if (jobsSection) {
+				jobsSection.scrollIntoView({ behavior: "smooth" });
+			}
+		}
+	}, [debouncedSearchTerm, searchResults]);
 
 	const categories = [
 		{
@@ -268,7 +279,7 @@ const HomePage = () => {
 					</div>
 				</div>
 			</section>
-			<section className="py-16 bg-gray-50">
+			<section className="py-16 bg-gray-50" id="jobs">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="text-center mb-12">
 						<h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
@@ -281,35 +292,6 @@ const HomePage = () => {
 								  } matching "${debouncedSearchTerm}"`
 								: "Find the job that suits you or hire the ideal employee."}
 						</p>
-					</div>
-					<div className="bg-white rounded-2xl p-6 mb-8 shadow-sm">
-						<div className="flex items-center gap-4 mb-4">
-							<span className="font-semibold text-gray-700">Filters:</span>
-							<div className="flex gap-4">
-								<div>
-									<label className="block text-sm font-medium text-gray-600 mb-1">
-										Category
-									</label>
-									<select className="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600">
-										<option>All categories</option>
-										<option>IT & Programming</option>
-										<option>Marketing</option>
-										<option>Design</option>
-									</select>
-								</div>
-								<div>
-									<label className="block text-sm font-medium text-gray-600 mb-1">
-										Ish turi
-									</label>
-									<select className="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-600">
-										<option>All types</option>
-										<option>Full-time</option>
-										<option>Part-time</option>
-										<option>Remote</option>
-									</select>
-								</div>
-							</div>
-						</div>
 					</div>
 
 					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
@@ -350,7 +332,14 @@ const HomePage = () => {
 
 					<div className="text-center mt-12">
 						<button
-							onClick={() => router.push("/jobs")}
+							onClick={() => {
+								const role = getItem("role");
+								if (role) {
+									router.push(`${role}/jobs`);
+								} else {
+									router.push("/jobs");
+								}
+							}}
 							className="bg-blue-600 text-white px-8 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-colors inline-flex items-center gap-2"
 						>
 							View all jobs
@@ -435,7 +424,7 @@ const HomePage = () => {
 					<div className="flex flex-col sm:flex-row gap-4 justify-center">
 						<button
 							onClick={() => {
-								router.push("/jobs");
+								router.push("/sign-up");
 							}}
 							className="bg-white text-blue-600 px-8 py-3 rounded-xl font-semibold hover:bg-gray-100 transition-colors"
 						>

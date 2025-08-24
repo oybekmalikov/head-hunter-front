@@ -1,10 +1,7 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Inter } from "next/font/google";
 import { useState } from "react";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
 	children,
@@ -16,7 +13,7 @@ export default function RootLayout({
 			new QueryClient({
 				defaultOptions: {
 					queries: {
-						staleTime: 60 * 1000, // 1 minute
+						staleTime: 60 * 1000,
 					},
 				},
 			})
@@ -24,7 +21,7 @@ export default function RootLayout({
 
 	return (
 		<html lang="en">
-			<body className={inter.className}>
+			<body className="font-sans">
 				<QueryClientProvider client={queryClient}>
 					{children}
 				</QueryClientProvider>

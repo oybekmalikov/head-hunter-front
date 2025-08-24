@@ -1,9 +1,8 @@
 import React from "react";
-
-export default function JobSeekerLayout({
+export default function ApplicationLayout({
 	children,
 }: {
 	children: React.ReactNode;
 }) {
-	return <div>{children}</div>;
+	return <>{children}</>;
 }

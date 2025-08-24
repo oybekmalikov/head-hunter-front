@@ -37,6 +37,9 @@ export default function Error({ error, reset }: ErrorProps) {
 		if (error.message.includes("server") || error.message.includes("500")) {
 			return "server";
 		}
+		if (error.message.includes("access_denied")) {
+			return "access_denied";
+		}
 		return "generic";
 	};
 
@@ -71,6 +74,12 @@ export default function Error({ error, reset }: ErrorProps) {
 			icon: AlertTriangle,
 			title: "Unexpected error",
 			subtitle: "Something went wrong. Please try again",
+			color: "text-red-500",
+		},
+		access_denied: {
+			icon: Shield,
+			title: "Access denied",
+			subtitle: "You do not have permission to access this page",
 			color: "text-red-500",
 		},
 	};

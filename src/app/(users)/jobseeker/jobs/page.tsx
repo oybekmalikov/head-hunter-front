@@ -1,24 +1,20 @@
 "use client";
 import {
 	ArrowRight,
-	CheckCircle,
-	Eye,
 	Eye as EyeIcon,
-	Heart,
 	Heart as HeartIcon,
-	MapPin,
 	MessageCircle,
 	RefreshCw,
 	Search,
 	Settings,
 	Zap,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { JobPostingCard } from "../../components/shared/job-posting";
+import { JobPostingCard } from "../../../../components/shared/job-posting";
 
 const JobsPage = () => {
-	const router = useRouter();
+	// const router = useRouter();
 	const [selectedTab, setSelectedTab] = useState("For you");
 
 	const tabs = [
@@ -70,13 +66,11 @@ const JobsPage = () => {
 			company: "Creative Studio",
 			verified: false,
 			location: "Ташкент, улица Рашидова, 78",
-			
 		},
 	];
 
 	return (
 		<div className="min-h-screen bg-gray-50">
-			{/* Header with Search */}
 			<header className="bg-white shadow-sm sticky top-0 z-40">
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
 					<div className="flex items-center gap-4">
@@ -100,9 +94,7 @@ const JobsPage = () => {
 
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 				<div className="flex gap-6">
-					{/* Left Sidebar */}
-					<div className="w-80 space-y-4">
-						{/* Your Activity Card */}
+					<div className="w-80 space-y-4 sticky top-30 z-30 h-fit">
 						<div className="bg-white rounded-xl p-4 shadow-sm">
 							<div className="flex items-center justify-between mb-3">
 								<div className="flex items-center gap-2">
@@ -122,7 +114,6 @@ const JobsPage = () => {
 							</button>
 						</div>
 
-						{/* Statistics Card */}
 						<div className="bg-white rounded-xl p-4 shadow-sm">
 							<div className="space-y-3">
 								<div className="flex items-center justify-between">
@@ -160,7 +151,6 @@ const JobsPage = () => {
 							</div>
 						</div>
 
-						{/* Uplift Resume Card */}
 						<div className="bg-white rounded-xl p-4 shadow-sm">
 							<div className="flex items-center justify-between">
 								<div>
@@ -178,9 +168,7 @@ const JobsPage = () => {
 						</div>
 					</div>
 
-					{/* Main Content */}
 					<div className="flex-1">
-						{/* Filter Tabs */}
 						<div className="bg-white rounded-xl p-4 shadow-sm mb-6">
 							<div className="flex gap-2 overflow-x-auto">
 								{tabs.map((tab) => (
@@ -189,7 +177,7 @@ const JobsPage = () => {
 										onClick={() => setSelectedTab(tab)}
 										className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
 											selectedTab === tab
-												? "bg-black text-white"
+												? "bg-blue-600 text-white"
 												: "bg-gray-100 text-gray-600 hover:bg-gray-200"
 										}`}
 									>
@@ -199,7 +187,6 @@ const JobsPage = () => {
 							</div>
 						</div>
 
-						{/* Job Listings */}
 						<div className="space-y-4">
 							{mockJobs.map((job) => (
 								<JobPostingCard key={job.id} job={job} />
@@ -209,8 +196,7 @@ const JobsPage = () => {
 				</div>
 			</div>
 
-			{/* Floating Chats Button */}
-			<button className="fixed bottom-6 right-6 bg-black text-white p-4 rounded-xl shadow-lg hover:bg-gray-800 transition-colors">
+			<button className="fixed bottom-6 right-6 bg-blue-600 text-white p-4 rounded-xl shadow-lg hover:bg-blue-800 transition-colors">
 				<MessageCircle className="w-6 h-6" />
 			</button>
 		</div>

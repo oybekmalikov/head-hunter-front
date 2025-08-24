@@ -14,7 +14,12 @@ const SignIn = () => {
 		mutate(values, {
 			onSuccess: () => {
 				// router.push(`/jobseeker`);
-				router.push(`/${getItem("role")}`);
+				const role = getItem("role");
+				if (role) {
+					router.push(`/${role}`);
+				} else {
+					router.push(`/jobseeker`);
+				}
 			},
 		});
 	};

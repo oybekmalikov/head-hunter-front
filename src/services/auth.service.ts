@@ -1,7 +1,17 @@
 import { ApiUrls } from "../app/api/api-urls";
 import { apiConfig } from "../app/api/config";
-import { setItem } from "../helpers/localstorage";
+import { removeItem, setItem } from "../helpers/localstorage";
 import { Notification } from "../helpers/notification";
+
+const setCookie = (name: string, value: string, days: number = 7) => {
+	const expires = new Date();
+	expires.setTime(expires.getTime() + days * 15 * 60 * 60 * 1000);
+	document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+};
+
+const removeCookie = (name: string) => {
+	document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
+};
 
 export const authService = {
 	signIn: async (email: string, password: string) => {
@@ -11,9 +21,14 @@ export const authService = {
 		});
 		if (response.data.success) {
 			Notification("success", response.data.message);
+
 			setItem("access_token", response.data.accessToken);
 			setItem("role", response.data.role);
 			setItem("user_id", response.data.userId);
+
+			setCookie("access_token", response.data.accessToken);
+			setCookie("role", response.data.role);
+			setCookie("user_id", response.data.userId);
 		}
 		return response;
 	},
@@ -26,8 +41,26 @@ export const authService = {
 	},
 
 	signOut: async () => {
-		const response = await apiConfig().postRequest(ApiUrls.SIGN_OUT);
-		return response.data;
+		try {
+			const response = await apiConfig().postRequest(ApiUrls.SIGN_OUT);
+			removeCookie("access_token");
+			removeCookie("role");
+			removeCookie("user_id");
+			removeItem("access_token");
+			removeItem("role");
+			removeItem("user_id");
+			window.location.href = "/";
+			return response.data;
+		} catch (error) {
+			removeCookie("access_token");
+			removeCookie("role");
+			removeCookie("user_id");
+			removeItem("access_token");
+			removeItem("role");
+			removeItem("user_id");
+			window.location.href = "/";
+			throw error;
+		}
 	},
 
 	refreshToken: async (id: string) => {
