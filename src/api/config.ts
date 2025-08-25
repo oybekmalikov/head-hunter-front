@@ -1,4 +1,4 @@
-import axiosInstance from ".";
+import axiosInstance from "./index";
 import { Notification } from "@/helpers/notification";
 
 export function apiConfig() {
