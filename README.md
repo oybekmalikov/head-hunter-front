@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Head Hunter - Job Market Platform
+
+A modern job market platform built with Next.js, TypeScript, and Tailwind CSS. Connect job seekers with employers through an intuitive and feature-rich interface.
+
+## Features
+
+### 🔐 Authentication & User Management
+
+- User registration and login
+- Role-based access control (User, Job Seeker, Employer)
+- Protected routes and role guards
+- User profile management
+
+### 👨‍💼 Job Seeker Features
+
+- Professional profile creation
+- Job search and filtering
+- Job application tracking
+- Resume upload and management
+- Saved jobs functionality
+
+### 🏢 Employer Features
+
+- Company profile management
+- Job posting and management
+- Candidate application review
+- Interview scheduling
+- Candidate search and filtering
+
+### 🎯 Smart Matching
+
+- AI-powered job-candidate matching
+- Skill-based recommendations
+- Location and experience filtering
+
+## Tech Stack
+
+- **Frontend**: Next.js 15, React 19, TypeScript
+- **Styling**: Tailwind CSS 4
+- **State Management**: React Context + Hooks
+- **Authentication**: Custom JWT-based system
+- **Database**: Ready for integration (MongoDB, PostgreSQL, etc.)
+
+## Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── (auth)/            # Authentication routes
+│   │   ├── login/         # Login page
+│   │   └── register/      # Registration page
+│   ├── (dashboard)/       # Protected dashboard routes
+│   │   ├── dashboard/     # Main dashboard
+│   │   ├── job-seeker/    # Job seeker specific routes
+│   │   └── employer/      # Employer specific routes
+│   ├── jobs/              # Public job listings
+│   ├── companies/         # Company profiles
+│   └── layout.tsx         # Root layout
+├── components/            # Reusable components
+│   ├── ui/               # Basic UI components
+│   ├── forms/            # Form components
+│   ├── layout/           # Layout components
+│   └── shared/           # Shared utilities
+├── types/                # TypeScript type definitions
+├── hooks/                # Custom React hooks
+├── lib/                  # Utility functions and constants
+└── store/                # State management
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+```bash
+git clone <repository-url>
+cd head-hunter
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### For Job Seekers
 
-## Learn More
+1. Register an account and select "Job Seeker" role
+2. Complete your professional profile
+3. Upload your resume
+4. Browse and apply to jobs
+5. Track your applications
 
-To learn more about Next.js, take a look at the following resources:
+### For Employers
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Register an account and select "Employer" role
+2. Set up your company profile
+3. Post job openings
+4. Review applications
+5. Schedule interviews
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Role System
 
-## Deploy on Vercel
+- **User**: Basic access, can browse jobs and companies
+- **Job Seeker**: Can apply to jobs, manage profile, track applications
+- **Employer**: Can post jobs, review applications, manage company profile
+- **Admin/Superadmin**: Platform management (future feature)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.
+
+## Future Enhancements
+
+- [ ] Real-time notifications
+- [ ] Advanced search filters
+- [ ] Video interviews
+- [ ] Mobile app
+- [ ] Analytics dashboard
+- [ ] Payment integration
+- [ ] Email notifications
+- [ ] Social media integration
+
+## Support
+
+For support and questions, please open an issue in the repository or contact the development team.
