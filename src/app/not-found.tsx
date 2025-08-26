@@ -2,6 +2,7 @@ import { Briefcase, Home } from "lucide-react";
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import LogOut from "../components/shared/log-out";
 
 const varelaRound = Varela_Round({
 	weight: ["400"],
@@ -16,7 +17,7 @@ export default function NotFound() {
 					href="/"
 					className="flex items-center text-white text-xl font-semibold hover:opacity-80 transition-opacity"
 				>
-					<div className="flex items-center ">
+					<div className="flex items-center">
 						<Image
 							src="/logo.jpg"
 							alt="logo"
@@ -38,6 +39,7 @@ export default function NotFound() {
 						</div>
 					</div>
 				</Link>
+				{/* <LogOut /> */}
 			</header>
 			<main className="flex-1 flex flex-col items-center justify-center text-center px-5">
 				<div className="text-8xl md:text-9xl font-black text-yellow-400 mb-6 animate-bounce">

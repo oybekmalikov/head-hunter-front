@@ -9,10 +9,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
-<<<<<<< HEAD
     "noImplicitAny": false,
-=======
->>>>>>> b43c80507ed3d6f4c1319341edecde2d2af7b6e0
     "noEmit": true,
     "incremental": true,
     "module": "esnext",
@@ -25,14 +22,12 @@
       {
         "name": "next"
       }
-<<<<<<< HEAD
     ],
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": [
+        "./src/*"
+      ],
     }
-=======
-    ]
->>>>>>> b43c80507ed3d6f4c1319341edecde2d2af7b6e0
   },
   "include": [
     "next-env.d.ts",

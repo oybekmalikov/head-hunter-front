@@ -15,7 +15,7 @@ export interface VerifyOtpType {
 }
 export interface ResetPasswordType {
     email: string;
-    password: string;
+    newPassword: string;
     confirmPassword: string;
 }
 export interface User {

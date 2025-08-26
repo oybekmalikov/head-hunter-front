@@ -4,8 +4,10 @@ import '@ant-design/v5-patch-for-react-19';
 import { Button, Card, Form, Input } from 'antd';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
+import { useAuth } from '@/hooks/useAuth';
 
 const SignUpPage = () => {
+  const {} = useAuth()
   return (
     <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
       <Card

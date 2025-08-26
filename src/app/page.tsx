@@ -1,18 +1,3 @@
-<<<<<<< HEAD
-"use client"
-import '@ant-design/v5-patch-for-react-19';
-import { Button } from 'antd';
-import Link from "next/link";
-
-export default function Home() {
-  return (
-    <div className='flex gap-2'>
-      <Link href="/auth/sign-in" className='w-[100px] h-[40px] rounded-[8px] border border-blue-600 text-blue-600 flex items-center justify-center'>SignIn</Link>
-      <Button type='primary' size='large' className="w-[100px] h-[40px]" onClick={() => { window.location.href = "/auth/sign-up" }} >Sign Up</Button>
-    </div>
-  );
-}
-=======
 "use client";
 import {
 	ArrowRight,
@@ -170,7 +155,7 @@ const HomePage = () => {
 					<div className="flex items-center justify-between h-16">
 						<div className="flex items-center gap-3">
 							<div className="w-8 h-8 rounded-lg flex items-center justify-center">
-								<div className="flex items-center ">
+								<div className="flex items-center">
 									<Image src="/logo.jpg" alt="logo" width={96} height={96} />
 									<div className="flex items-center mr-2 md:flex">
 										<span
@@ -564,4 +549,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
->>>>>>> b43c80507ed3d6f4c1319341edecde2d2af7b6e0

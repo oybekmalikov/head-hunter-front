@@ -1,12 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { ResetPasswordType, SignInType, SignUpType, VerifyOtpType } from "@/types/auth"
-import { authService } from "@/service/auth.service"
+import { authService } from "../services/auth.service";
+
 
 export const useAuth = () => {
     const queryClient = useQueryClient();
     const SignInUser = () => {
         return useMutation({
-            mutationFn: async ({ email, password }: SignInType) => authService.signIn({ email, password }),
+            mutationFn: async ({ email, password }: SignInType) => authService.signIn(email, password),
             onSuccess: () => {
                 return queryClient.invalidateQueries({ queryKey: ['auth'] })
             },
@@ -15,6 +16,14 @@ export const useAuth = () => {
     const SignUpUser = () => {
         return useMutation({
             mutationFn: async (data: SignUpType) => authService.signUp(data),
+            onSuccess: () => {
+                return queryClient.invalidateQueries({ queryKey: ['auth'] })
+            },
+        })
+    }
+    const SignOutUser = () => {
+        return useMutation({
+            mutationFn: async () => authService.signOut(),
             onSuccess: () => {
                 return queryClient.invalidateQueries({ queryKey: ['auth'] })
             },

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getItem, removeItem } from "../../helpers/localstorage";
 
 const axiosInstance = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+	baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
 axiosInstance.interceptors.request.use((config) => {

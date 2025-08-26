@@ -2,6 +2,7 @@ import { ApiUrls } from "../app/api/api-urls";
 import { apiConfig } from "../app/api/config";
 import { removeItem, setItem } from "../helpers/localstorage";
 import { Notification } from "../helpers/notification";
+import { ResetPasswordType, SignInType, SignUpType, VerifyOtpType } from "../types/auth";
 
 const setCookie = (name: string, value: string, days: number = 7) => {
 	const expires = new Date();
@@ -32,11 +33,8 @@ export const authService = {
 		}
 		return response;
 	},
-	signUp: async (email: string, password: string) => {
-		const response = await apiConfig().postRequest(ApiUrls.SIGN_UP, {
-			email,
-			password,
-		});
+	signUp: async (data: SignUpType) => {
+		const response = await apiConfig().postRequest(ApiUrls.SIGN_UP, data);
 		return response.data;
 	},
 
@@ -49,7 +47,6 @@ export const authService = {
 			removeItem("access_token");
 			removeItem("role");
 			removeItem("user_id");
-			window.location.href = "/";
 			return response.data;
 		} catch (error) {
 			removeCookie("access_token");
@@ -58,7 +55,6 @@ export const authService = {
 			removeItem("access_token");
 			removeItem("role");
 			removeItem("user_id");
-			window.location.href = "/";
 			throw error;
 		}
 	},
@@ -67,19 +63,12 @@ export const authService = {
 		const response = await apiConfig().postRequest(ApiUrls.REFRESH_TOKEN(id));
 		return response.data;
 	},
-	verifyOtp: async (email: string, otp: string) => {
-		const response = await apiConfig().postRequest(ApiUrls.VERIFY_OTP, {
-			email,
-			otp,
-		});
+	verifyOtp: async (data: VerifyOtpType) => {
+		const response = await apiConfig().postRequest(ApiUrls.VERIFY_OTP, data);
 		return response.data;
 	},
-
-	resetPassword: async (email: string, password: string) => {
-		const response = await apiConfig().postRequest(ApiUrls.RESET_PASSWORD, {
-			email,
-			password,
-		});
+	resetPassword: async (data: ResetPasswordType) => {
+		const response = await apiConfig().postRequest(ApiUrls.RESET_PASSWORD, data);
 		return response.data;
 	},
 	changePassword: async (email: string, password: string) => {
@@ -88,5 +77,9 @@ export const authService = {
 			password,
 		});
 		return response.data;
+	},
+	async forgotPassword(email: string) {
+		const res = await apiConfig().postRequest(ApiUrls.FORGOT_PASSWORD, { email });
+		return res
 	},
 };

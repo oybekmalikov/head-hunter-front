@@ -5,10 +5,11 @@ import { Button, Card, Form, Input } from "antd";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getItem } from "../../../helpers/localstorage";
-import { useSignIn } from "../../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 
 const SignIn = () => {
-	const { mutate, isPending } = useSignIn();
+	const { SignInUser } = useAuth();
+	const { mutate, isPending } = SignInUser();
 	const router = useRouter();
 	const handleSubmit = (values: any) => {
 		mutate(values, {

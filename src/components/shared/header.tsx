@@ -1,11 +1,12 @@
 "use client";
-import { Bell, ChevronDown, FileText, LogOut, Settings, User } from "lucide-react";
+import { Bell, ChevronDown, FileText, Settings, User } from "lucide-react";
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
 import { authService } from "../../services/auth.service";
 import { NotificationModal } from "./notification";
 import { PopConfirm } from "./pop-confirm";
+import LogOut from "./log-out";
 
 const varelaRound = Varela_Round({
 	weight: ["400"],
@@ -151,7 +152,7 @@ const Header = ({
 										}}
 										className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-red-50 text-red-600 transition-colors"
 									>
-										<LogOut className="w-5 h-5" />
+										<LogOut />
 										<span className="font-medium">Sign Out</span>
 									</button>
 								</div>

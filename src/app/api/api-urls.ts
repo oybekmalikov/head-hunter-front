@@ -62,5 +62,7 @@ export class ApiUrls {
 		`/job-applications/${id}`;
 	public static DELETE_JOB_APPLICATION = (id: string) =>
 		`/job-applications/${id}`;
-
+	//USERS
+	public static GET_USERS = "/users";
+	public static GET_USER_PROFILE = "/users/profile";
 }
