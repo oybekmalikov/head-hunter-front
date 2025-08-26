@@ -1,3 +1,4 @@
+import { convertLegacyProps } from "antd/es/button"
 import { Notification } from "../../helpers/notification";
 import axiosInstance from "./index";
 
@@ -32,11 +33,12 @@ export function apiConfig() {
 	async function updateRequest(url: string, body: object) {
 		try {
 			const res = await axiosInstance.patch(url, body);
+			console.log(res?.data?.message)
+			Notification("success", res?.data?.message);
 			return res;
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			Notification("error", error?.response?.data?.message?.message);
-			throw error; // Re-throw the error so React Query can handle it properly
+			throw error;
 		}
 	}
 	return {

@@ -136,7 +136,10 @@ const Header = ({
 										<span className="font-medium">Profile</span>
 									</button>
 									<button
-										onClick={() => setIsProfileDropdownOpen(false)}
+										onClick={() => {
+											setActiveTab("resume");
+											setIsProfileDropdownOpen(false);
+										}}
 										className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-gray-50 text-gray-700 transition-colors"
 									>
 										<FileText className="w-5 h-5" />

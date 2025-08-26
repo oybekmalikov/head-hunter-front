@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Header from "../../../components/shared/header";
 import ApplicationsPage from "./applications/page";
 import JobsPage from "./jobs/page";
+import ResumePage from "./resume/page"
 
 export default function JobseekerLayout({
 	children,
@@ -23,6 +24,8 @@ export default function JobseekerLayout({
 			setActiveTab("chats");
 		} else if (pathname.includes("/profile")) {
 			setActiveTab("profile");
+		} else if (pathname.includes("/resume")) {
+			setActiveTab("resume");
 		}
 	}, [pathname]);
 
@@ -31,8 +34,11 @@ export default function JobseekerLayout({
 			pathname.includes("/applications/") &&
 			pathname !== "/jobseeker/applications" &&
 			pathname !== "/jobseeker/applications/";
-
 		if (isDynamicRoute) {
+			return children;
+		}
+		const isJobsRoute = pathname.includes("/jobs/") && pathname !== "/jobseeker/jobs" && pathname !== "/jobseeker/jobs/";
+		if (isJobsRoute) {
 			return children;
 		}
 
@@ -59,6 +65,8 @@ export default function JobseekerLayout({
 						</p>
 					</div>
 				);
+			case "resume":
+				return <ResumePage />;
 			default:
 				return <JobsPage />;
 		}

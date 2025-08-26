@@ -63,4 +63,47 @@ export class ApiUrls {
 	public static DELETE_JOB_APPLICATION = (id: string) =>
 		`/job-applications/${id}`;
 
+	//JOB SEEKER WORK EXPERIENCE
+	public static CREATE_JOB_SEEKER_WORK_EXPERIENCE = "/work-experience";
+	public static GET_JOB_SEEKER_WORK_EXPERIENCES_BY_JOB_SEEKER_ID = (
+		jobSeekerId: string
+	) => `/work-experience/job-seeker/${jobSeekerId}`;
+	public static UPDATE_JOB_SEEKER_WORK_EXPERIENCE = (id: string) =>
+		`/work-experience/${id}`;
+	public static DELETE_JOB_SEEKER_WORK_EXPERIENCE = (id: string) =>
+		`/work-experience/${id}`;
+
+	//SKILLS
+	public static GET_ALL_SKILLS = "/skills";
+	public static GET_ALL_SKILLS_BY_NAME = (name: string) =>
+		`/skills/search/${name}`;
+
+	//JOB SEEKER SKILLS
+	public static GET_ALL_JOB_SEEKER_SKILLS_BY_JOB_SEEKER_ID = (
+		jobSeekerId: string
+	) => `/job-seeker-skills/job-seeker/${jobSeekerId}`;
+	public static CREATE_JOB_SEEKER_SKILL = "/job-seeker-skills";
+	public static GET_ALL_JOB_SEEKER_SKILLS = "/job-seeker-skills";
+	public static GET_JOB_SEEKER_SKILL_BY_ID = (id: string) =>
+		`/job-seeker-skills/${id}`;
+	public static UPDATE_JOB_SEEKER_SKILL = (id: string) =>
+		`/job-seeker-skills/${id}`;
+	public static DELETE_JOB_SEEKER_SKILL = (id: string) =>
+		`/job-seeker-skills/${id}`;
+
+	//JOB SEEKER EDUCATION
+	public static CREATE_JOB_SEEKER_EDUCATION = "/edu";
+	public static GET_JOB_SEEKER_EDUCATIONS_BY_JOB_SEEKER_ID = (
+		jobSeekerId: string
+	) => `/edu/job-seeker/${jobSeekerId}`;
+	public static UPDATE_JOB_SEEKER_EDUCATION = (id: string) =>
+		`/edu/${id}`;
+	public static DELETE_JOB_SEEKER_EDUCATION = (id: string) =>
+		`/edu/${id}`;
+
+	//JOB SEEKER 
+	public static UPLOAD_RESUME = "/job-seekers/upload-resume";
+	public static DELETE_RESUME = "/job-seekers/delete-resume";
+	public static GET_PROFILE = "/job-seekers/profile";
+	public static UPDATE_JOB_SEEKER = (id: string) => `/job-seekers/${id}`;
 }
