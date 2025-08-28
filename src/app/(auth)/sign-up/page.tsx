@@ -70,14 +70,14 @@ const SignUpPage = () => {
               id='password'
             />
           </Form.Item>
-          <Form.Item label="Confirm Password:" name="password" tooltip="This is a required field" htmlFor='password'>
+          <Form.Item label="Confirm Password:" name="confirmPassword" tooltip="This is a required field" htmlFor='confirmPassword'>
             <Input.Password
               prefix={<LockOutlined style={{ color: "#6B7280" }} />}
               className='flex gap-1'
               type='password'
-              placeholder='Enter your password'
+              placeholder='Confirm your password'
               size='large'
-              id='password'
+              id='confirmPassword'
               autoComplete='off'
             />
           </Form.Item>

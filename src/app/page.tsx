@@ -1,4 +1,10 @@
 "use client";
+
+const meta: Metadata = {
+	title: "HeadHunter",
+	description: "Find your dream job in Uzbekistan with HeadHunter. Explore thousands of job listings and apply online.",
+	keywords: "job, employment, career, Uzbekistan"
+}
 import {
 	ArrowRight,
 	Book,
@@ -25,6 +31,7 @@ import {
 	useGetAllJobPostingsByPagination,
 	useSearchJobPostings,
 } from "../hooks/useJobPostings";
+import { Metadata } from "next";
 
 const varelaRound = Varela_Round({
 	weight: ["400"],

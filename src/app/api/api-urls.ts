@@ -64,5 +64,15 @@ export class ApiUrls {
 		`/job-applications/${id}`;
 	//USERS
 	public static GET_USERS = "/users";
-	public static GET_USER_PROFILE = "/users/profile";
+
+	// JOB SEEKER
+	public static GET_JOB_SEEKER_PROFILE = "/job-seekers/profile";
+	public static GET_JOB_SEEKERS = "/job-seekers";
+	public static GET_JOB_SEEKERS_BY_PAGINATION = "/job-seekers";
+	public static CREATE_JOB_SEEKER = "/job-seekers";
+	public static GET_JOB_SEEKER_BY_ID = (id: number) => `/job-seekers/${id}`;
+	public static UPDATE_JOB_SEEKER = (id: number) => `/job-seekers/${id}`;
+	public static DELETE_JOB_SEEKER = (id: number) => `/job-seekers/${id}`;	
+	public static UPLOAD_JOBSEEKERS_RESUME = "/job-seekers/upload-resume";
+	public static DELETE_JOBSEEKERS_RESUME = (id: number) => `/job-seekers/delete-resume`;
 }

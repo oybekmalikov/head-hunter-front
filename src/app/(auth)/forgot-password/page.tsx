@@ -47,7 +47,7 @@ const ForgotPasswordPage = () => {
     const onFinishResetPassword = (email: string) => {
         resetPasswordFn({ email: email, ...form }, {
             onSuccess: () => {
-                router.push("/auth/sign-in")
+                router.push("/sign-in")
             }
         })
     }
