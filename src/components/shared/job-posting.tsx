@@ -24,7 +24,7 @@ export const JobPostingCard = ({ job }: { job: any }) => {
 					</h3>
 					<p className="text-lg font-medium text-gray-800 mb-2">{job.salary}</p>
 					<div className="flex gap-2 mb-3">
-						{job.experience.split(",").map((exp: string) => (
+							{job.requirements?.split(",").map((exp: string) => (
 							<span
 								key={exp}
 								className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg"
@@ -37,7 +37,7 @@ export const JobPostingCard = ({ job }: { job: any }) => {
 						</span>
 					</div>
 					<div className="flex items-center gap-2 mb-2">
-						<span className="font-medium text-gray-700">{job.company}</span>
+						<span className="font-medium text-gray-700">{job.company?.name}</span>
 						{job.verified && <CheckCircle className="w-5 h-5 text-blue-600" />}
 					</div>
 					<div className="flex items-center gap-2 text-gray-600">

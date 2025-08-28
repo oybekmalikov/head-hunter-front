@@ -46,7 +46,7 @@ export const useSearchJobPostings = (search: string) => {
 		queryKey: ["job-postings", search],
 		queryFn: () => new JobPostingsService().searchJobPostings(search),
 		select: (data) => data.data,
-		enabled: !!search, // Only run query when search term exists
+		enabled: !!search,
 	});
 	return { data, isLoading, error };
 };

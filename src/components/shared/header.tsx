@@ -1,7 +1,8 @@
 "use client";
-import { Bell, ChevronDown, FileText, LogOut, Settings, User } from "lucide-react";
+import { Bell, ChevronDown, FileText, LogOut, User } from "lucide-react";
 import { Varela_Round } from "next/font/google";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { authService } from "../../services/auth.service";
 import { NotificationModal } from "./notification";
@@ -13,20 +14,13 @@ const varelaRound = Varela_Round({
 	variable: "--font-varela-round",
 });
 
-const Header = ({
-	activeTab,
-	setActiveTab,
-	isProfileDropdownOpen,
-	setIsProfileDropdownOpen,
-}: {
-	activeTab: string;
-	setActiveTab: (tab: string) => void;
-	isProfileDropdownOpen: boolean;
-	setIsProfileDropdownOpen: (open: boolean) => void;
-}) => {
+const Header = () => {
+	const pathname = usePathname();
+	const router = useRouter();
 	const [isPopConfirmOpen, setIsPopConfirmOpen] = useState(false);
 	const [isSigningOut, setIsSigningOut] = useState(false);
 	const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+	const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
 	const handleSignOut = async () => {
 		try {
@@ -69,9 +63,9 @@ const Header = ({
 					<div className="flex items-center gap-6">
 						<div className="hidden md:flex items-center gap-1 bg-gray-100 rounded-2xl p-2">
 							<button
-								onClick={() => setActiveTab("jobs")}
+								onClick={() => router.push("/jobseeker/jobs")}
 								className={`px-6 py-3 rounded-xl font-semibold transition-all ${
-									activeTab === "jobs"
+									pathname === "/jobseeker/jobs"
 										? "bg-white text-blue-600 shadow-lg"
 										: "text-gray-600 hover:text-gray-900"
 								}`}
@@ -79,9 +73,9 @@ const Header = ({
 								Jobs
 							</button>
 							<button
-								onClick={() => setActiveTab("applications")}
+								onClick={() => router.push("/jobseeker/applications")}
 								className={`px-6 py-3 rounded-xl font-semibold transition-all ${
-									activeTab === "applications"
+									pathname === "/jobseeker/applications"
 										? "bg-white text-blue-600 shadow-lg"
 										: "text-gray-600 hover:text-gray-900"
 								}`}
@@ -89,9 +83,9 @@ const Header = ({
 								Applications
 							</button>
 							<button
-								onClick={() => setActiveTab("chats")}
+								onClick={() => router.push("/jobseeker/chats")}
 								className={`px-6 py-3 rounded-xl font-semibold transition-all ${
-									activeTab === "chats"
+									pathname === "/jobseeker/chats"
 										? "bg-white text-blue-600 shadow-lg"
 										: "text-gray-600 hover:text-gray-900"
 								}`}
@@ -127,7 +121,7 @@ const Header = ({
 								<div className="absolute right-0 top-full mt-3 w-56 bg-white rounded-2xl shadow-2xl border py-3 z-50">
 									<button
 										onClick={() => {
-											setActiveTab("profile");
+											router.push("/jobseeker/profile");
 											setIsProfileDropdownOpen(false);
 										}}
 										className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-gray-50 text-gray-700 transition-colors"
@@ -137,7 +131,7 @@ const Header = ({
 									</button>
 									<button
 										onClick={() => {
-											setActiveTab("resume");
+											router.push("/jobseeker/resume");
 											setIsProfileDropdownOpen(false);
 										}}
 										className="w-full flex items-center gap-4 px-6 py-4 text-left hover:bg-gray-50 text-gray-700 transition-colors"

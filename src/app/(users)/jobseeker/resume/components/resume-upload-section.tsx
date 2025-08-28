@@ -1,8 +1,11 @@
 "use client";
 
-import { Download, Eye, EyeOff, FileText, Trash2, Upload } from "lucide-react";
+import { Download, Eye, FileText, Trash2, Upload } from "lucide-react";
 import { useState } from "react";
-import { useJobSeekersDeleteResume, useJobSeekersUploadResume } from "../../../../../hooks/useJobSeekers";
+import {
+	useJobSeekersDeleteResume,
+	useJobSeekersUploadResume,
+} from "../../../../../hooks/useJobSeekers";
 
 interface ResumeFile {
 	id: number;
@@ -15,20 +18,25 @@ interface ResumeFile {
 }
 
 export const ResumeUploadSection = ({ jobSeeker }: { jobSeeker: any }) => {
-	const { resumeUrl,resumeFilename,id } = jobSeeker?.data;
+	const { resumeUrl, resumeFilename, id } = jobSeeker?.data;
 	const { mutate: createResumeMutation } = useJobSeekersUploadResume();
 	const { mutate: deleteResumeMutation } = useJobSeekersDeleteResume();
-	const [resumeFiles, setResumeFiles] = useState<ResumeFile[]>([
-		{
-			id: id,
-			filename: `${resumeFilename}`,
-			originalName: `${resumeFilename}`,
-			fileSize: 245760,
-			uploadDate: "2024-01-15",
-			fileType: "pdf",
-			url: `${resumeUrl}`,
-		},
-	]);
+	const [resumeFiles, setResumeFiles] = useState<any>(
+		resumeUrl
+			?
+		[
+		 {
+					id: id,
+					filename: `${resumeFilename}`,
+					originalName: `${resumeFilename}`,
+					fileSize: 245760,
+					uploadDate: "2024-01-15",
+					fileType: "pdf",
+					url: `${resumeUrl}`,
+			  }
+		]
+		: []
+	);
 
 	const [isUploading, setIsUploading] = useState(false);
 	const [uploadProgress, setUploadProgress] = useState(0);
@@ -95,8 +103,6 @@ export const ResumeUploadSection = ({ jobSeeker }: { jobSeeker: any }) => {
 		deleteResumeMutation();
 		setResumeFiles(resumeFiles.filter((file) => file.id !== id));
 	};
-
-
 
 	const formatFileSize = (bytes: number) => {
 		if (bytes === 0) return "0 Bytes";
@@ -205,7 +211,6 @@ export const ResumeUploadSection = ({ jobSeeker }: { jobSeeker: any }) => {
 										</h3>
 										<p className="text-sm text-gray-600">{file.filename}</p>
 									</div>
-									
 								</div>
 
 								<div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
@@ -238,9 +243,7 @@ export const ResumeUploadSection = ({ jobSeeker }: { jobSeeker: any }) => {
 
 							<div className="flex gap-2 ml-4">
 								<button
-									className={`p-2 rounded-lg transition-all ${
-											"text-green-600 hover:text-green-700 hover:bg-green-50"
-									}`}
+									className={`p-2 rounded-lg transition-all ${"text-green-600 hover:text-green-700 hover:bg-green-50"}`}
 									title={"Make Public"}
 								>
 									<Eye className="w-4 h-4" />

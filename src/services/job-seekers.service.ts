@@ -20,4 +20,14 @@ export const jobSeekersService = {
 		const response = await apiConfig().updateRequest(ApiUrls.UPDATE_JOB_SEEKER(jobSeeker.id), jobSeeker);
 		return response.data;
 	},
+	getJobSeekerPostings: async (jobSeekerId: string) => {
+		const response = await apiConfig().getRequest(
+			ApiUrls.GET_JOB_SEEKER_POSTINGS_BY_JOB_SEEKER_ID(jobSeekerId)
+		);
+		return response.data;
+	},
+	createJobSeekerPosting: async (jobSeekerPosting: any) => {
+		const response = await apiConfig().postRequest(ApiUrls.CREATE_JOB_SEEKER_POSTING, jobSeekerPosting);
+		return response.data;
+	},
 };

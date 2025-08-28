@@ -1,9 +1,23 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { Eye, Upload } from "lucide-react";
+import { useState } from "react";
+import {
+	useJobSeeker,
+	useJobSeekersGetJobSeekerPostings,
+	useJobSeekersGetProfile,
+} from "../../../../hooks/useJobSeekers";
 import { ResumeManager } from "./components/resume-manager";
+import { ResumePreviewModal } from "./components/resume-preview-modal";
 
 export default function ResumePage() {
+	const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+	const { data: jobSeeker } = useJobSeekersGetProfile();
+	const { data: jobSeekerPostings } = useJobSeekersGetJobSeekerPostings(
+		jobSeeker?.data?.id
+	);
+	const { useJobSeekersCreateJobSeekerPosting } = useJobSeeker();
+	const { mutate: createJobSeekerPosting } = useJobSeekersCreateJobSeekerPosting();
 	return (
 		<div className="min-h-screen bg-gray-50 p-8">
 			<div className="max-w-6xl mx-auto">
@@ -18,7 +32,22 @@ export default function ResumePage() {
 							</p>
 						</div>
 						<div className="flex items-center gap-3">
-							<button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2">
+							<button
+								disabled={jobSeekerPostings?.data?.length > 0}
+								type="button"
+								className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
+								onClick={() => createJobSeekerPosting({
+									jobSeekerId: jobSeeker?.data?.id,
+									postingId: jobSeekerPostings?.data?.id,
+								})}
+							>
+								<Upload className="w-5 h-5" />
+								Upload Resume
+							</button>
+							<button
+								onClick={() => setIsPreviewModalOpen(true)}
+								className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
+							>
 								<Eye className="w-5 h-5" />
 								Preview Resume
 							</button>
@@ -27,6 +56,12 @@ export default function ResumePage() {
 				</div>
 
 				<ResumeManager />
+
+				<ResumePreviewModal
+					isOpen={isPreviewModalOpen}
+					onClose={() => setIsPreviewModalOpen(false)}
+					jobSeekerData={jobSeeker?.data}
+				/>
 			</div>
 		</div>
 	);

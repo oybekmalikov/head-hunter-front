@@ -29,7 +29,7 @@ export class ApiUrls {
 	public static UPDATE_JOB_POSTING = (id: string) => `/job-postings/${id}`;
 	public static DELETE_JOB_POSTING = (id: string) => `/job-postings/${id}`;
 	public static GET_JOB_POSTINGS_SEARCH = (search: string) =>
-		`/job-postings/search?search=${search}`;
+		`/job-postings/search?${search}`;
 	public static GET_POPULAR_JOB_POSTINGS = (params: object) =>
 		`/job-postings/popular?${params}`;
 	public static APPLY_FOR_JOB_POSTING = (id: string) =>
@@ -106,4 +106,8 @@ export class ApiUrls {
 	public static DELETE_RESUME = "/job-seekers/delete-resume";
 	public static GET_PROFILE = "/job-seekers/profile";
 	public static UPDATE_JOB_SEEKER = (id: string) => `/job-seekers/${id}`;
+	public static GET_JOB_SEEKER_POSTINGS_BY_JOB_SEEKER_ID = (
+		jobSeekerId: string
+	) => `/job-seeker-posting/job-seeker/${jobSeekerId}`;
+	public static CREATE_JOB_SEEKER_POSTING = "/job-seeker-posting";
 }
