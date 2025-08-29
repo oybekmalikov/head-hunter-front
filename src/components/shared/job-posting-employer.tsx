@@ -3,19 +3,7 @@ import { useRouter } from 'next/navigation';
 import { getItem } from '../../helpers/localstorage';
 import { useCreateJobApplication } from '../../hooks/useJobApplications';
 
-export const JobPostingCard = ({ job }: { job: any }) => {
-	const { mutate, isPending } = useCreateJobApplication();
-	const handleApllyJob = (id: string) => {
-		const userId = getItem('user_id');
-		const data = {
-			jobPostingId: id,
-			jobSeekerId: +userId,
-			resumeUrl: '/',
-			coverLetter: 'Cover Letter',
-			status: 'pending',
-		};
-		mutate(data);
-	};
+export const JobPostingCardEmployer = ({ job }: { job: any }) => {
 	const router = useRouter();
 	return (
 		<div
@@ -64,13 +52,6 @@ export const JobPostingCard = ({ job }: { job: any }) => {
 				</div>
 			</div>
 			<div className='flex gap-3 w-[100%]'>
-				<button
-					disabled={isPending}
-					onClick={() => handleApllyJob(job.id)}
-					className='flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors cursor-pointer'
-				>
-					Apply
-				</button>
 				<button
 					onClick={() => {
 						const role = getItem('role');

@@ -9,6 +9,12 @@ export class JobApplicationsService {
 		return response.data;
 	}
 
+		async getAllJobApplications() {
+		const response = await apiConfig().getRequest(
+			ApiUrls.GET_ALL_JOB_APPLICATION
+		);
+		return response.data;
+	}
 	async getJobApplicationsByJobSeekerId(jobSeekerId: string) {
 		const response = await apiConfig().getRequest(
 			ApiUrls.GET_JOB_APPLICATIONS_BY_JOB_SEEKER_ID(jobSeekerId)

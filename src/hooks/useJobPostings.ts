@@ -26,6 +26,15 @@ export const useGetJobPostingById = (id: string) => {
 	return { data, isLoading, error };
 };
 
+export const useGetJobPostingsByEmployerId = (id: string) => {
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["job-posting-employer", id],
+		queryFn: () => new JobPostingsService().getJobPostingByEmployerId(id),
+		select: (data) => data.data,
+	});
+	return { data, isLoading, error };
+};
+
 export const useUpdateJobPosting = () => {
 	const { mutate, isPending } = useMutation({
 		mutationFn: ({ id, data }: { id: string; data: any }) =>

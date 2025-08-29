@@ -22,12 +22,10 @@ import {
 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { useCreateJobApplication } from '../../../../../hooks/useJobApplications';
 import {
 	useGetJobPostingById,
 	useSearchJobPostings,
 } from '../../../../../hooks/useJobPostings';
-import { getItem } from "../../../../../helpers/localstorage"
 
 const SingleJobPage = () => {
 	const params = useParams();
@@ -44,18 +42,6 @@ const SingleJobPage = () => {
 	const { data: recommendedJobsData } = useSearchJobPostings(search);
 	const [isBookmarked, setIsBookmarked] = useState(false);
 	const [isLiked, setIsLiked] = useState(false);
-	const { mutate, isPending } = useCreateJobApplication();
-	const handleApply = () => {
-		const userId=getItem('user_id');
-		const data = {
-			jobPostingId: +jobId,
-			jobSeekerId:+userId,
-			status: 'pending',
-			coverLetter: 'Cover Letter',
-			resumeUrl: '/',
-		};
-		mutate(data);
-	};
 
 	const handleContact = () => {
 		// Handle contact
@@ -163,12 +149,6 @@ const SingleJobPage = () => {
 										</div>
 									</div>
 									<div className='flex gap-3'>
-										<button
-											onClick={handleApply}
-											className='flex-1 bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors cursor-pointer'
-										>
-											Apply for this position
-										</button>
 										<button
 											onClick={handleContact}
 											className='flex-1 bg-gray-100 text-gray-700 py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition-colors cursor-pointer'

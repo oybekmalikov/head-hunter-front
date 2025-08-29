@@ -22,6 +22,13 @@ export class JobPostingsService {
 		return response.data;
 	}
 
+		async getJobPostingByEmployerId(id: string) {
+		const response = await apiConfig().getRequest(
+			ApiUrls.GET_JOB_POSTINGS_BY_EMPLOYER(id)
+		);
+		return response.data;
+	}
+
 	async updateJobPosting(id: string, data: any) {
 		const response = await apiConfig().updateRequest(
 			ApiUrls.UPDATE_JOB_POSTING(id),

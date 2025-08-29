@@ -158,13 +158,11 @@ const Header = () => {
 				</div>
 			</div>
 
-			{/* Notification Modal */}
 			<NotificationModal
 				isOpen={isNotificationOpen}
 				onClose={() => setIsNotificationOpen(false)}
 			/>
 
-			{/* Sign Out Confirmation */}
 			<PopConfirm
 				message="Are you sure you want to sign out?"
 				onCancel={() => setIsPopConfirmOpen(false)}
