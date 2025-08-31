@@ -3,7 +3,7 @@ import { apiConfig } from "../app/api/config";
 
 export const jobSeekersService = {
 	uploadResume: async (resume: File) => {
-		const formData = new FormData();	
+		const formData = new FormData();
 		formData.append("file", resume);
 		const response = await apiConfig().postRequest(ApiUrls.UPLOAD_RESUME, formData);
 		return response.data;
@@ -13,7 +13,7 @@ export const jobSeekersService = {
 		return response.data;
 	},
 	getProfile: async () => {
-		const response = await apiConfig().getRequest(ApiUrls.GET_JOB_SEEKER_PROFILE);
+		const response = await apiConfig().getRequest(ApiUrls.GET_PROFILE);
 		return response.data;
 	},
 	updateJobSeeker: async (jobSeeker: any) => {
@@ -30,12 +30,16 @@ export const jobSeekersService = {
 		const response = await apiConfig().postRequest(ApiUrls.CREATE_JOB_SEEKER_POSTING, jobSeekerPosting);
 		return response.data;
 	},
-	async getJobSeekers() {
-		const res = await apiConfig().getRequest(ApiUrls.GET_JOB_SEEKERS);
-		return res;
+	getJobSeekerProfile: async () => {
+		const response = await apiConfig().getRequest(
+			ApiUrls.GET_JOB_SEEKER_PROFILE()
+		);
+		return response.data;
 	},
-	async getJobSeekerProfile() {
-		const res = await apiConfig().getRequest(ApiUrls.GET_JOB_SEEKER_PROFILE);
-		return res;
+	getJobSeekers: async () => {
+		const response = await apiConfig().getRequest(
+			ApiUrls.GET_ALL_JOB_SEEKERS
+		);
+		return response.data;
 	}
 };

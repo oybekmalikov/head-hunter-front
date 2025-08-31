@@ -20,6 +20,18 @@ export const useGetJobApplicationById = (id: string) => {
 	return { data, isLoading, error };
 };
 
+export const useGetAllJobApplications = () => {
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["job-applications",],
+		queryFn: () => {
+			return new JobApplicationsService().getAllJobApplications();
+		},
+		select: (data) => data.data,
+	});
+
+	return { data, isLoading, error };
+};
+
 export const useGetJobApplicationsByJobSeekerId = (jobSeekerId: string) => {
 	const { data, isLoading, error, refetch } = useQuery({
 		queryKey: ["job-applications", jobSeekerId],

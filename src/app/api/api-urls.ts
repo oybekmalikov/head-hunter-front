@@ -104,20 +104,14 @@ export class ApiUrls {
 	public static DELETE_JOB_SEEKER_EDUCATION = (id: string) => `/edu/${id}`;
 
 	//JOB SEEKER
+	public static GET_ALL_JOB_SEEKERS = `/job-seekers`;
 	public static UPLOAD_RESUME = '/job-seekers/upload-resume';
 	public static DELETE_RESUME = '/job-seekers/delete-resume';
+	public static GET_PROFILE = '/job-seekers/profile';
+	public static GET_JOB_SEEKER_PROFILE = () => '/job-seekers/profile';
 	public static UPDATE_JOB_SEEKER = (id: string) => `/job-seekers/${id}`;
 	public static GET_JOB_SEEKER_POSTINGS_BY_JOB_SEEKER_ID = (
 		jobSeekerId: string
 	) => `/job-seeker-posting/job-seeker/${jobSeekerId}`;
 	public static CREATE_JOB_SEEKER_POSTING = '/job-seeker-posting';
-
-	// JOB SEEKER
-	public static GET_JOB_SEEKER_PROFILE = "/job-seekers/profile";
-	public static GET_JOB_SEEKERS = "/job-seekers";
-	public static CREATE_JOB_SEEKER = "/job-seekers";
-	public static GET_JOB_SEEKER_BY_ID = (id: number) => `/job-seekers/${id}`;
-	public static DELETE_JOB_SEEKER = (id: number) => `/job-seekers/${id}`;
-	public static UPLOAD_JOBSEEKERS_RESUME = "/job-seekers/upload-resume";
-	public static DELETE_JOBSEEKERS_RESUME = (id: number) => `/job-seekers/delete-resume`;
 }
