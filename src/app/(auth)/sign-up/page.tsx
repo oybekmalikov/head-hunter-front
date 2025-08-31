@@ -4,10 +4,22 @@ import '@ant-design/v5-patch-for-react-19';
 import { Button, Card, Form, Input } from 'antd';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import Link from 'next/link';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { SignUpType } from '../../../types/auth';
 
 const SignUpPage = () => {
-  const {} = useAuth()
+  const router = useRouter()
+  const { SignUpUser } = useAuth()
+  const { mutate: signUp, isPending: loading } = SignUpUser()
+  const [form] = Form.useForm<SignUpType>()
+  const onFinish = (data: SignUpType) => {
+    signUp({ ...data }, {
+      onSuccess: () => {
+        router.push(`/verify-otp?email=${data.email}`)
+      }
+    })
+  }
   return (
     <div className='w-[100vw] h-[100vh] flex items-center justify-center'>
       <Card
@@ -17,6 +29,8 @@ const SignUpPage = () => {
         <h2 className='text-center text-[15px] text-gray-500 mt-2'>Sign up for a new account</h2>
         <Form
           name="basic"
+          onFinish={onFinish}
+          form={form}
           labelCol={{ span: 24 }}
           wrapperCol={{ span: 24 }}
           style={{ maxWidth: 450, maxHeight: 600, marginTop: 20 }}
@@ -32,7 +46,7 @@ const SignUpPage = () => {
               marginBottom: "50px"
             }}
           >
-            <Form.Item label="First Name" >
+            <Form.Item label="First Name" name="firstName">
               <Input
                 prefix={<UserOutlined />}
                 style={{ width: '100%', color: "#6B7280" }}
@@ -41,7 +55,7 @@ const SignUpPage = () => {
               />
             </Form.Item>
             <div className="w-[20px]"></div>
-            <Form.Item label="Last Name">
+            <Form.Item label="Last Name" name="lastName">
               <Input
                 prefix={<UserOutlined />}
                 style={{ width: '100%', color: "#6B7280" }}
@@ -85,7 +99,7 @@ const SignUpPage = () => {
               <Checkbox>I agree to the <Link href="/">Terms of Service</Link> and <Link href="/">Privacy Policy</Link></Checkbox>
             </Form.Item> */}
           <Form.Item>
-            <Button type="primary" htmlType="submit" size='large' className='w-[100%]'>
+            <Button type="primary" htmlType="submit" size='large' className='w-[100%]' loading={loading}>
               Create Account
             </Button>
           </Form.Item>

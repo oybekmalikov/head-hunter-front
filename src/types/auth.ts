@@ -1,35 +1,35 @@
 export interface SignInType {
-    email: string;
-    password: string;
+	email: string;
+	password: string;
 }
 
 export interface SignUpType extends SignInType {
-    firstName: string;
-    lastName: string;
-    confirmPassword: string;
+	firstName: string;
+	lastName: string;
+	confirmPassword: string;
 }
 export interface VerifyOtpType {
-    email: string;
-    otp: string;
-    type: string
+	email: string;
+	otp: string;
+	type: string
 }
 export interface ResetPasswordType {
-    email: string;
-    newPassword: string;
-    confirmPassword: string;
+	email: string;
+	newPassword: string;
+	confirmPassword: string;
 }
 export interface User {
-    id: string;
-    email: string;
-    role: "admin" | "employer" | "jobseeker";
-    isVerified: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+	id: string;
+	email: string;
+	role: "admin" | "employer" | "jobseeker";
+	isVerified: boolean;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface AuthState {
-    user: User | null;
-    isAuthenticated: boolean;
-    isLoading: boolean;
+	user: User | null;
+	isAuthenticated: boolean;
+	isLoading: boolean;
 }
 

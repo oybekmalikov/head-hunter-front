@@ -14,12 +14,9 @@ const SignIn = () => {
 	const handleSubmit = (values: any) => {
 		mutate(values, {
 			onSuccess: () => {
-				// router.push(`/jobseeker`);
 				const role = getItem("role");
 				if (role) {
 					router.push(`/${role}`);
-				} else {
-					router.push(`/jobseeker`);
 				}
 			},
 		});

@@ -4,8 +4,8 @@ import { Button, Card, Form, Input, Steps } from 'antd'
 import React, { useEffect, useState } from 'react'
 import '@ant-design/v5-patch-for-react-19';
 import { CheckOutlined, LeftOutlined, LockOutlined, MailOutlined, RightOutlined, SafetyOutlined } from '@ant-design/icons';
-import { useAuth } from '@/hooks/useAuth';
-import { ResetPasswordType } from '@/types/auth';
+import { useAuth } from '../../../hooks/useAuth';
+import { ResetPasswordType } from '../../../types/auth';
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -28,6 +28,7 @@ const ForgotPasswordPage = () => {
         forgotPasswordFn(email, {
             onSuccess: () => {
                 next();
+                setTimeLeft(180);
             }
         })
         // next()
@@ -52,14 +53,14 @@ const ForgotPasswordPage = () => {
         })
     }
 
-
     // Timer
-    const [timeLeft, setTimeLeft] = useState(180)
+    const [timeLeft, setTimeLeft] = useState(0)
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60)
         const s = seconds % 60
         return `${m}:${s < 10 ? "0" : ""}${s}`
     }
+
     useEffect(() => {
         if (timeLeft <= 0) return
         const interval = setInterval(() => {
