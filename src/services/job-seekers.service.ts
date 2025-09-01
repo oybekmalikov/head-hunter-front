@@ -32,7 +32,7 @@ export const jobSeekersService = {
 	},
 	getJobSeekerProfile: async () => {
 		const response = await apiConfig().getRequest(
-			ApiUrls.GET_JOB_SEEKER_PROFILE()
+			ApiUrls.GET_JOB_SEEKER_PROFILE
 		);
 		return response.data;
 	},

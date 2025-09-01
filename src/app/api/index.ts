@@ -4,6 +4,7 @@ import { getItem, removeItem } from "../../helpers/localstorage";
 const axiosInstance = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
+console.log(process.env.NEXT_PUBLIC_API_URL, "API URL");
 
 axiosInstance.interceptors.request.use((config) => {
 	const access_token = getItem("access_token");

@@ -108,10 +108,14 @@ export class ApiUrls {
 	public static UPLOAD_RESUME = '/job-seekers/upload-resume';
 	public static DELETE_RESUME = '/job-seekers/delete-resume';
 	public static GET_PROFILE = '/job-seekers/profile';
-	public static GET_JOB_SEEKER_PROFILE = () => '/job-seekers/profile';
+	public static GET_JOB_SEEKER_PROFILE = '/job-seekers/profile';
 	public static UPDATE_JOB_SEEKER = (id: string) => `/job-seekers/${id}`;
 	public static GET_JOB_SEEKER_POSTINGS_BY_JOB_SEEKER_ID = (
 		jobSeekerId: string
 	) => `/job-seeker-posting/job-seeker/${jobSeekerId}`;
 	public static CREATE_JOB_SEEKER_POSTING = '/job-seeker-posting';
+
+	// USERS
+	public static GET_USERS = `/users`;
+	public static GET_USER_PROFILE = `/users/profile`;
 }
