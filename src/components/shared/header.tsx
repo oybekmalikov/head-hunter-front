@@ -29,8 +29,10 @@ const Header = () => {
 		} catch (error) {
 			console.error("Sign out error:", error);
 		} finally {
-			setIsSigningOut(false);
-			setIsPopConfirmOpen(false);
+			setTimeout(() => {
+				setIsSigningOut(false);
+				setIsPopConfirmOpen(false);
+			}, 0);
 		}
 	};
 

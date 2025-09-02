@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "antd";
 import { Eye, Upload } from "lucide-react";
 import { useState } from "react";
 import {
@@ -17,7 +18,18 @@ export default function ResumePage() {
 		jobSeeker?.data?.id
 	);
 	const { useJobSeekersCreateJobSeekerPosting } = useJobSeeker();
-	const { mutate: createJobSeekerPosting } = useJobSeekersCreateJobSeekerPosting();
+	const { mutate: createJobSeekerPosting } =
+		useJobSeekersCreateJobSeekerPosting();
+
+	const handleUploadResume = (jobSeeker) => {
+		createJobSeekerPosting({
+			jobSeekerId: jobSeeker.id,
+			city: jobSeeker.city,
+			salary: jobSeeker.avgSalary,
+			timeForApply: `${jobSeeker.experience}`,
+			target: jobSeeker.summary,
+		});
+	};
 	return (
 		<div className="min-h-screen bg-gray-50 p-8">
 			<div className="max-w-6xl mx-auto">
@@ -32,25 +44,29 @@ export default function ResumePage() {
 							</p>
 						</div>
 						<div className="flex items-center gap-3">
-							<button
-								disabled={jobSeekerPostings?.data?.length > 0}
-								type="button"
-								className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
-								onClick={() => createJobSeekerPosting({
-									jobSeekerId: jobSeeker?.data?.id,
-									postingId: jobSeekerPostings?.data?.id,
-								})}
-							>
-								<Upload className="w-5 h-5" />
-								Upload Resume
-							</button>
-							<button
+							<div className="flex flex-col items-center gap-3 mt-9">
+								<Button
+									type="primary"
+									className="bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all"
+									onClick={() => handleUploadResume(jobSeeker?.data)}
+									disabled={jobSeekerPostings?.data?.length > 0}
+								>
+									<Upload className="w-5 h-5" />
+									Upload Resume
+								</Button>
+								{jobSeekerPostings?.data?.length > 0 && (
+									<span className="text-sm text-green-600">Resume uploaded</span>
+								)}
+							</div>
+
+							<Button
+								type="primary"
 								onClick={() => setIsPreviewModalOpen(true)}
 								className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold transition-all flex items-center gap-2"
 							>
 								<Eye className="w-5 h-5" />
 								Preview Resume
-							</button>
+							</Button>
 						</div>
 					</div>
 				</div>

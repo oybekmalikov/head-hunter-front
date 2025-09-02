@@ -1,7 +1,7 @@
-'use client';
-import HeaderEmployer from '../../../components/shared/header-employer';
+"use client";
+import HeaderEmployer from "../../../components/shared/header-employer";
 
-export default function JobseekerLayout({
+export default function EmployerLayout({
 	children,
 }: {
 	children: React.ReactNode;

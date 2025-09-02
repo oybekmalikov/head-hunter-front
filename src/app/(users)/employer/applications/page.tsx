@@ -127,7 +127,7 @@ const ApplicationsPage = () => {
 							className='bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md hover:border-gray-200 transition-all duration-200 cursor-pointer'
 							onClick={() =>
 								router.push(
-									`/employer/applications/${application.jobPostingId}`
+									`/employer/applications/${application.id}`
 								)
 							}
 						>

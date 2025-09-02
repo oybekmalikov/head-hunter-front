@@ -32,25 +32,24 @@ export const authService = {
 		}
 		return response;
 	},
-	signUp: async (email: string, password: string) => {
-		const response = await apiConfig().postRequest(ApiUrls.SIGN_UP, {
-			email,
-			password,
-		});
+	signUp: async (data: any) => {
+		const response = await apiConfig().postRequest(ApiUrls.SIGN_UP, data);
 		return response.data;
 	},
 
 	signOut: async () => {
 		try {
-			const response = await apiConfig().postRequest(ApiUrls.SIGN_OUT);
+			// const response = await apiConfig().postRequest(ApiUrls.SIGN_OUT);
 			removeCookie("access_token");
 			removeCookie("role");
 			removeCookie("user_id");
 			removeItem("access_token");
 			removeItem("role");
 			removeItem("user_id");
-			window.location.href = "/";
-			return response.data;
+
+			setTimeout(() => {
+				window.location.href = "/";
+			}, 0);
 		} catch (error) {
 			removeCookie("access_token");
 			removeCookie("role");
@@ -58,7 +57,10 @@ export const authService = {
 			removeItem("access_token");
 			removeItem("role");
 			removeItem("user_id");
-			window.location.href = "/";
+
+			setTimeout(() => {
+				window.location.href = "/";
+			}, 0);
 			throw error;
 		}
 	},
@@ -67,10 +69,11 @@ export const authService = {
 		const response = await apiConfig().postRequest(ApiUrls.REFRESH_TOKEN(id));
 		return response.data;
 	},
-	verifyOtp: async (email: string, otp: string) => {
+	verifyOtp: async (email: string, otp: string, type: string) => {
 		const response = await apiConfig().postRequest(ApiUrls.VERIFY_OTP, {
 			email,
 			otp,
+			type,
 		});
 		return response.data;
 	},
@@ -82,10 +85,9 @@ export const authService = {
 		});
 		return response.data;
 	},
-	changePassword: async (email: string, password: string) => {
+	changePassword: async (data: any) => {
 		const response = await apiConfig().postRequest(ApiUrls.CHANGE_PASSWORD, {
-			email,
-			password,
+			data,
 		});
 		return response.data;
 	},
